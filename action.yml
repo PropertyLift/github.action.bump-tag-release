@@ -28,7 +28,9 @@ runs:
 
     - name: Bump and Tag
       id: bump_and_tag
-      uses: propertylift/action.bump-version-and-tag@latest
+      uses: propertylift/action.bump-version-and-tag@v3
+        with:
+          prefix: 'v'
 
     - name: Build Changelog
       id: github_release
