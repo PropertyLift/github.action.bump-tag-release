@@ -31,12 +31,12 @@ TBD
     slack_channel_id: ${{ secrets.SLACK_CHANNEL_NOTIFICATION }}
     slack_bot_token: ${{ secrets.SLACK_TOKEN }}
   ```
-  
+
 ## Inputs
 
-| Parameter Name   | Required | Default | Description                                |
-| ---------------- | -------- | ------- | ------------------------------------------ |
-| github_token     | Yes      | ''      | The GitHub token to use for authentication |
-| project_name     | Yes      | ''      | The name of the project                    |
-| slack_channel_id | Yes      | ''      | The Slack channel id to post to            |
-| slack_bot_token  | Yes      | ''      | The Slack bot token                        |
+| Parameter Name | Required | Default | Description                                |
+| -------------- | -------- | ------- | ------------------------------------------ |
+| githubToken    | Yes      | ''      | The GitHub token to use for authentication |
+| projectName    | Yes      | ''      | The name of the project                    |
+| slackChannelId | Yes      | ''      | The Slack channel id to post to            |
+| slackBotToken  | Yes      | ''      | The Slack bot token                        |

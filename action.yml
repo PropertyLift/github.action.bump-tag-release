@@ -2,19 +2,19 @@ name: Bump & Tag & Release Action
 description: Common GitHub Action for bumping, tagging, and releasing
 
 inputs:
-  github_token:
+  githubToken:
     description: 'The GitHub token to use for authentication'
     required: true
     default: ''
-  project_name:
+  projectName:
     description: 'The name of the project'
     required: true
     default: ''
-  slack_channel_id:
+  slackChannelId:
     description: 'The Slack channel to post to'
     required: true
     default: ''
-  slack_bot_token:
+  slackBotToken:
     description: 'The Slack bot token'
     required: true
     default: ''
@@ -23,7 +23,7 @@ runs:
   using: composite
   steps:
     - name: Configure GitHub credentials
-      run: git config --global url."https://${{ inputs.github_token }}@github.com/".insteadOf "https://github.com/"
+      run: git config --global url."https://${{ inputs.githubToken }}@github.com/".insteadOf "https://github.com/"
 
     - name: Bump and Tag
       id: bump_and_tag
@@ -33,7 +33,7 @@ runs:
       id: github_release
       uses: mikepenz/release-changelog-builder-action@v4
       env:
-        GITHUB_TOKEN: ${{ inputs.github_token }}
+        GITHUB_TOKEN: ${{ inputs.githubToken }}
 
     - name: Create and publish release
       uses: ncipollo/release-action@v1
@@ -45,7 +45,7 @@ runs:
       id: slack
       uses: slackapi/slack-github-action@v1.23.0
       with:
-        channel-id: ${{ inputs.slack_channel_id }}
+        channel-id: ${{ inputs.slackChannelId }}
         payload: |
           {
             "blocks": [
@@ -53,7 +53,7 @@ runs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*${{ inputs.project_name }} ${{ steps.bump_and_tag.outputs.tag }}* has been released :rocket:"
+                  "text": "*${{ inputs.projectName }} ${{ steps.bump_and_tag.outputs.tag }}* has been released :rocket:"
                 }
               }
             ],
@@ -65,4 +65,4 @@ runs:
             ]
           }
       env:
-        SLACK_BOT_TOKEN: ${{ inputs.slack_bot_token }}
+        SLACK_BOT_TOKEN: ${{ inputs.slackBotToken }}
