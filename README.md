@@ -24,13 +24,13 @@ TBD
     echo "PROJECT_SHORT_NAME=$(echo ${{ github.repository }} | cut -d '/' -f 2)" >> $GITHUB_ENV
 
 - name: Bump & Tag & Release
-  uses: propertylift/github.action.bump-tag-release@latest
+  uses: propertylift/github.action.bump-tag-release@v0.3.0
   with:
     github_token: ${{ secrets.GITHUB_TOKEN }}
     project_name: ${{ env.PROJECT_SHORT_NAME }}
     slack_channel_id: ${{ secrets.SLACK_CHANNEL_NOTIFICATION }}
     slack_bot_token: ${{ secrets.SLACK_TOKEN }}
-  ```
+```
 
 ## Inputs
 
