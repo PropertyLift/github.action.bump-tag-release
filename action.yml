@@ -23,6 +23,7 @@ runs:
   using: "composite"
   steps:
     - name: Configure GitHub credentials
+      shell: bash -e {0}
       run: git config --global url."https://${{ inputs.githubToken }}@github.com/".insteadOf "https://github.com/"
 
     - name: Bump and Tag
@@ -42,7 +43,6 @@ runs:
         tag: ${{ steps.bump_and_tag.outputs.tag }}
 
     - name: Post to a Slack channel
-      id: slack
       uses: slackapi/slack-github-action@v1.23.0
       with:
         channel-id: ${{ inputs.slackChannelId }}
