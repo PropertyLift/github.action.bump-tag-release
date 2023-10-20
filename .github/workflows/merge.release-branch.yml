@@ -17,10 +17,11 @@ jobs:
           fetch-depth: 0
 
       - name: Set repository name to variable PROJECT_SHORT_NAME
-        run: |
-          echo "PROJECT_SHORT_NAME=$(echo ${{ github.repository }} | cut -d '/' -f 2)" >> $GITHUB_ENV
+        shell: bash -e {0}
+        run: echo "PROJECT_SHORT_NAME=$(echo ${{ github.repository }} | cut -d '/' -f 2)" >> $GITHUB_ENV
 
       - name: Configure GitHub credentials
+        shell: bash -e {0}
         run: git config --global url."https://${{ env.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
 
       - name: Bump and Tag
