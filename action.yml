@@ -20,7 +20,7 @@ inputs:
     default: ''
 
 runs:
-  using: composite
+  using: "composite"
   steps:
     - name: Configure GitHub credentials
       run: git config --global url."https://${{ inputs.githubToken }}@github.com/".insteadOf "https://github.com/"
