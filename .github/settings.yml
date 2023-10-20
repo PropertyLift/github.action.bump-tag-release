@@ -1,13 +1,13 @@
 # see: https://github.com/probot/settings
 
 repository:
-  name: template.github-action # replace
-  description: Basic template repo for creating Github actions # replace
-  topics: # replace
+  name: github.action.bump-tag-release
+  description: Common GitHub Action for bumping, tagging, and releasing
+  topics: github githubaction customaction composite
   private: false
   has_issues: false
   has_wiki: false
-  is_template: true # replace
+  is_template: false
   default_branch: main
   allow_squash_merge: false
   allow_merge_commit: true

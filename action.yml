@@ -1,6 +1,68 @@
-name: # the name of the action
-description: # additional descriptive info about the action
+name: Bump & Tag & Release Action
+description: Common GitHub Action for bumping, tagging, and releasing
+
+inputs:
+  github_token:
+    description: 'The GitHub token to use for authentication'
+    required: true
+    default: ''
+  project_name:
+    description: 'The name of the project'
+    required: true
+    default: ''
+  slack_channel_id:
+    description: 'The Slack channel to post to'
+    required: true
+    default: ''
+  slack_bot_token:
+    description: 'The Slack bot token'
+    required: true
+    default: ''
+
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-# for additional options, see: https://help.github.com/en/articles/metadata-syntax-for-github-actions
+  using: composite
+  steps:
+    - name: Configure GitHub credentials
+      run: git config --global url."https://${{ inputs.github_token }}@github.com/".insteadOf "https://github.com/"
+
+    - name: Bump and Tag
+      id: bump_and_tag
+      uses: propertylift/action.bump-version-and-tag@latest
+
+    - name: Build Changelog
+      id: github_release
+      uses: mikepenz/release-changelog-builder-action@v4
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+
+    - name: Create and publish release
+      uses: ncipollo/release-action@v1
+      with:
+        body: ${{steps.github_release.outputs.changelog}}
+        tag: ${{ steps.bump_and_tag.outputs.tag }}
+
+    - name: Post to a Slack channel
+      id: slack
+      uses: slackapi/slack-github-action@v1.23.0
+      with:
+        channel-id: ${{ inputs.slack_channel_id }}
+        payload: |
+          {
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*${{ inputs.project_name }} ${{ steps.bump_and_tag.outputs.tag }}* has been released :rocket:"
+                }
+              }
+            ],
+            "attachments": [
+              {
+                "color": "#2eb886",
+                "text": ${{ toJSON(steps.github_release.outputs.changelog) }}
+              }
+            ]
+          }
+      env:
+        SLACK_BOT_TOKEN: ${{ inputs.slack_bot_token }}
