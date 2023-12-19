@@ -28,7 +28,7 @@ runs:
 
     - name: Bump and Tag
       id: bump_and_tag
-      uses: propertylift/action.bump-version-and-tag@v3
+      uses: bricklanetech/action.bump-version-and-tag@v3
       with:
         prefix: 'v'
 
@@ -45,7 +45,7 @@ runs:
         tag: ${{ steps.bump_and_tag.outputs.tag }}
 
     - name: Post to a Slack channel
-      uses: slackapi/slack-github-action@v1.23.0
+      uses: slackapi/slack-github-action@v1.24.0
       with:
         channel-id: ${{ inputs.slackChannelId }}
         payload: |
