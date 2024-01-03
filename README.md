@@ -26,10 +26,10 @@ TBD
 - name: Bump & Tag & Release
   uses: bricklanetech/github.action.bump-tag-release@v0.3.0
   with:
-    github_token: ${{ secrets.GITHUB_TOKEN }}
-    project_name: ${{ env.PROJECT_SHORT_NAME }}
-    slack_channel_id: ${{ secrets.SLACK_CHANNEL_NOTIFICATION }}
-    slack_bot_token: ${{ secrets.SLACK_TOKEN }}
+    githubToken: ${{ secrets.GITHUB_TOKEN }}
+    projectName: ${{ env.PROJECT_SHORT_NAME }}
+    slackChannelId: ${{ secrets.SLACK_CHANNEL_NOTIFICATION }}
+    slackBotToken: ${{ secrets.SLACK_TOKEN }}
 ```
 
 ## Inputs
