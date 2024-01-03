@@ -55,7 +55,7 @@ runs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*${{ inputs.projectName }} ${{ steps.bump_and_tag.outputs.tag }}* has been released :rocket:"
+                  "text": "*${{ inputs.projectName }} ${{ steps.bump_and_tag.outputs.tag }}* has been released by env.${{ github.actor }} :rocket:"
                 }
               }
             ],
