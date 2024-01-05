@@ -53,7 +53,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*${{ env.PROJECT_SHORT_NAME }} ${{ steps.bump_and_tag.outputs.tag }}* has been released :rocket:"
+                    "text": "*${{ env.PROJECT_SHORT_NAME }} ${{ steps.bump_and_tag.outputs.tag }}* has been released  by ${{ github.actor }} :rocket:"
                   }
                 }
               ],
