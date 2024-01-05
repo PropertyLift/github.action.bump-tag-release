@@ -6,10 +6,6 @@ inputs:
     description: 'The GitHub token to use for authentication'
     required: true
     default: ''
-  projectName:
-    description: 'The name of the project'
-    required: true
-    default: ''
   slackChannelId:
     description: 'The Slack channel to post to'
     required: true
@@ -23,8 +19,12 @@ runs:
   using: "composite"
   steps:
     - name: Configure GitHub credentials
-      shell: bash -e {0}
+      shell: bash
       run: git config --global url."https://${{ inputs.githubToken }}@github.com/".insteadOf "https://github.com/"
+
+    - name: Set repository name to variable
+      shell: bash
+      run: echo "PROJECT_SHORT_NAME=$(echo ${{ github.repository }} | cut -d '/' -f 2)" >> $GITHUB_ENV
 
     - name: Bump and Tag
       id: bump_and_tag
@@ -55,7 +55,7 @@ runs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*${{ inputs.projectName }} ${{ steps.bump_and_tag.outputs.tag }}* has been released by env.${{ github.actor }} :rocket:"
+                  "text": "*${{ env.PROJECT_SHORT_NAME }} ${{ steps.bump_and_tag.outputs.tag }}* has been released by env.${{ github.actor }} :rocket:"
                 }
               }
             ],

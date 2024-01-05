@@ -19,15 +19,10 @@ TBD
 ### Example:
 
 ```yml
-- name: Set repository name to variable PROJECT_SHORT_NAME
-  run: |
-    echo "PROJECT_SHORT_NAME=$(echo ${{ github.repository }} | cut -d '/' -f 2)" >> $GITHUB_ENV
-
 - name: Bump & Tag & Release
-  uses: bricklanetech/github.action.bump-tag-release@v0.3.0
+  uses: bricklanetech/github.action.bump-tag-release@v0.4.3
   with:
     githubToken: ${{ secrets.GITHUB_TOKEN }}
-    projectName: ${{ env.PROJECT_SHORT_NAME }}
     slackChannelId: ${{ secrets.SLACK_CHANNEL_NOTIFICATION }}
     slackBotToken: ${{ secrets.SLACK_TOKEN }}
 ```
@@ -37,6 +32,5 @@ TBD
 | Parameter Name | Required | Default | Description                                |
 | -------------- | -------- | ------- | ------------------------------------------ |
 | githubToken    | Yes      | ''      | The GitHub token to use for authentication |
-| projectName    | Yes      | ''      | The name of the project                    |
 | slackChannelId | Yes      | ''      | The Slack channel id to post to            |
 | slackBotToken  | Yes      | ''      | The Slack bot token                        |
