@@ -32,11 +32,18 @@ runs:
       with:
         prefix: 'v'
 
-    - name: Build Changelog
+    - name: Move 'latest' tag to current commit ref
+      uses: EndBug/latest-tag@latest
+
+    - name: Move SemVer major & minor tags automatically
+      uses: kellyselden/move-semver-tags-action@v3
+
+    - name: Create changelog text
       id: github_release
-      uses: mikepenz/release-changelog-builder-action@v4
-      env:
-        GITHUB_TOKEN: ${{ inputs.githubToken }}
+      uses: loopwerk/tag-changelog@v1
+      with:
+        token: ${{ inputs.githubToken }}
+        config_file: .github/tag-changelog-config.js
 
     - name: Create and publish release
       uses: ncipollo/release-action@v1
