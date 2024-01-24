@@ -48,7 +48,7 @@ runs:
     - name: Create and publish release
       uses: ncipollo/release-action@v1
       with:
-        body: ${{steps.github_release.outputs.changelog}}
+        body: ${{steps.github_release.outputs.changes}}
         tag: ${{ steps.bump_and_tag.outputs.tag }}
 
     - name: Post to a Slack channel
@@ -69,7 +69,7 @@ runs:
             "attachments": [
               {
                 "color": "#2eb886",
-                "text": ${{ toJSON(steps.github_release.outputs.changelog) }}
+                "text": ${{ toJSON(steps.github_release.outputs.changes) }}
               }
             ]
           }
